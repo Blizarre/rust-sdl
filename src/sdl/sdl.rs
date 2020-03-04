@@ -23,7 +23,7 @@ pub mod ll {
     #![allow(non_camel_case_types)]
 
     use libc::{c_int, c_uint, uint32_t};
-    use libc::types::os::arch::c95::c_schar;
+    use std::os::raw::c_char;
 
     pub type SDL_errorcode = c_uint;
     pub const SDL_ENOMEM: SDL_errorcode = 0;
@@ -46,8 +46,8 @@ pub mod ll {
     extern "C" {
         pub fn SDL_ClearError();
         pub fn SDL_Error(code: SDL_errorcode);
-        pub fn SDL_SetError(fmt: *const c_schar);
-        pub fn SDL_GetError() -> *mut c_schar;
+        pub fn SDL_SetError(fmt: *const c_char);
+        pub fn SDL_GetError() -> *mut c_char;
         pub fn SDL_Quit();
         pub fn SDL_QuitSubSystem(flags: SDL_InitFlag);
         pub fn SDL_Init(flags: uint32_t) -> c_int;
@@ -154,7 +154,7 @@ pub fn was_inited(flags: &[InitFlag]) -> Vec<InitFlag> {
 
 pub fn get_error() -> String {
     unsafe {
-        let cstr = ll::SDL_GetError() as *const i8;
+        let cstr = ll::SDL_GetError();
         let slice = CStr::from_ptr(cstr).to_bytes();
 
         str::from_utf8(slice).unwrap().to_string()
