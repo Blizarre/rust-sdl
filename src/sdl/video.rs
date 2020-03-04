@@ -1,7 +1,6 @@
 use std::mem;
 use libc::{c_int, c_float};
 use std::ptr;
-use rand::Rng;
 use std::slice;
 use std::ffi::CString;
 use std::path::Path;
@@ -205,7 +204,6 @@ impl Drop for Surface {
     }
 }
 
-#[allow(raw_pointer_derive)]
 #[derive(PartialEq, Copy, Clone)]
 pub struct Palette {
     pub raw: *mut ll::SDL_Palette
