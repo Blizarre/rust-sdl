@@ -3,22 +3,22 @@ use self::ll::{SDL_LockAudio, SDL_MixAudio, SDL_OpenAudio};
 use self::ll::{SDL_UnlockAudio};
 
 use std::mem::{forget, transmute};
-use libc::{c_int, c_void, uint16_t};
 use std::ptr::null_mut;
+use std::os::raw::{c_int, c_void};
 
 pub mod ll {
     #![allow(non_camel_case_types)]
 
-    use libc::{c_int, c_void, uint16_t};
+    use std::os::raw::{c_int, c_void};
 
-    pub const AUDIO_U8: uint16_t = 0x0008;
-    pub const AUDIO_S8: uint16_t = 0x8008;
-    pub const AUDIO_U16LSB: uint16_t = 0x0010;
-    pub const AUDIO_S16LSB: uint16_t = 0x8010;
-    pub const AUDIO_U16MSB: uint16_t = 0x1010;
-    pub const AUDIO_S16MSB: uint16_t = 0x9010;
-    pub const AUDIO_U16: uint16_t = AUDIO_U16LSB;
-    pub const AUDIO_S16: uint16_t = AUDIO_S16LSB;
+    pub const AUDIO_U8: u16 = 0x0008;
+    pub const AUDIO_S8: u16 = 0x8008;
+    pub const AUDIO_U16LSB: u16 = 0x0010;
+    pub const AUDIO_S16LSB: u16 = 0x8010;
+    pub const AUDIO_U16MSB: u16 = 0x1010;
+    pub const AUDIO_S16MSB: u16 = 0x9010;
+    pub const AUDIO_U16: u16 = AUDIO_U16LSB;
+    pub const AUDIO_S16: u16 = AUDIO_S16LSB;
 
     #[repr(C)]
     #[derive(Copy, Clone)]
@@ -58,7 +58,7 @@ pub static U16_AUDIO_FORMAT: AudioFormat = AudioFormat::U16Lsb;
 pub static S16_AUDIO_FORMAT: AudioFormat = AudioFormat::S16Lsb;
 
 impl AudioFormat {
-    pub fn to_ll_format(self) -> uint16_t {
+    pub fn to_ll_format(self) -> u16 {
         match self {
             AudioFormat::U8 => AUDIO_U8,
             AudioFormat::S8 => AUDIO_S8,
@@ -69,7 +69,7 @@ impl AudioFormat {
         }
     }
 
-    pub fn from_ll_format(x: uint16_t) -> AudioFormat {
+    pub fn from_ll_format(x: u16) -> AudioFormat {
         match x {
             AUDIO_U8 => AudioFormat::U8,
             AUDIO_S8 => AudioFormat::S8,

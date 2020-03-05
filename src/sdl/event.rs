@@ -1,16 +1,15 @@
 use std::mem;
-use libc::c_int;
 use std::slice;
 use num::FromPrimitive;
 use std::ffi::CStr;
 use std::str;
+use std::os::raw::c_int;
 
 pub mod ll {
     #![allow(non_camel_case_types)]
 
     use std::mem;
-    use libc::{c_void, c_int, c_uint, c_uchar, uint8_t, uint16_t, int16_t};
-    use std::os::raw::c_char;
+    use std::os::raw::{c_char, c_void, c_int, c_uint, c_uchar};
 
     pub use keysym::*;
 
@@ -47,10 +46,10 @@ pub mod ll {
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_keysym {
-        pub scancode: uint8_t,
+        pub scancode: u8,
         pub sym: SDLKey,
         pub _mod: SDLMod,
-        pub unicode: uint16_t,
+        pub unicode: u16,
     }
 
     #[repr(C)]
@@ -62,84 +61,84 @@ pub mod ll {
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_ActiveEvent {
-        pub _type: uint8_t,
-        pub gain: uint8_t,
-        pub state: uint8_t,
+        pub _type: u8,
+        pub gain: u8,
+        pub state: u8,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_KeyboardEvent {
-        pub _type: uint8_t,
-        pub which: uint8_t,
-        pub state: uint8_t,
+        pub _type: u8,
+        pub which: u8,
+        pub state: u8,
         pub keysym: SDL_keysym,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_MouseMotionEvent {
-        pub _type: uint8_t,
-        pub which: uint8_t,
-        pub state: uint8_t,
-        pub x: uint16_t,
-        pub y: uint16_t,
-        pub xrel: int16_t,
-        pub yrel: int16_t,
+        pub _type: u8,
+        pub which: u8,
+        pub state: u8,
+        pub x: u16,
+        pub y: u16,
+        pub xrel: i16,
+        pub yrel: i16,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_MouseButtonEvent {
-        pub _type: uint8_t,
-        pub which: uint8_t,
-        pub button: uint8_t,
-        pub state: uint8_t,
-        pub x: uint16_t,
-        pub y: uint16_t,
+        pub _type: u8,
+        pub which: u8,
+        pub button: u8,
+        pub state: u8,
+        pub x: u16,
+        pub y: u16,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_JoyAxisEvent {
-        pub _type: uint8_t,
-        pub which: uint8_t,
-        pub axis: uint8_t,
-        pub value: int16_t,
+        pub _type: u8,
+        pub which: u8,
+        pub axis: u8,
+        pub value: i16,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_JoyBallEvent {
-        pub _type: uint8_t,
-        pub which: uint8_t,
-        pub ball: uint8_t,
-        pub xrel: int16_t,
-        pub yrel: int16_t,
+        pub _type: u8,
+        pub which: u8,
+        pub ball: u8,
+        pub xrel: i16,
+        pub yrel: i16,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_JoyHatEvent {
-        pub _type: uint8_t,
-        pub which: uint8_t,
-        pub hat: uint8_t,
-        pub value: uint8_t,
+        pub _type: u8,
+        pub which: u8,
+        pub hat: u8,
+        pub value: u8,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_JoyButtonEvent {
-        pub _type: uint8_t,
-        pub which: uint8_t,
-        pub button: uint8_t,
-        pub state: uint8_t,
+        pub _type: u8,
+        pub which: u8,
+        pub button: u8,
+        pub state: u8,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_ResizeEvent {
-        pub _type: uint8_t,
+        pub _type: u8,
         pub w: c_int,
         pub h: c_int,
     }
@@ -147,19 +146,19 @@ pub mod ll {
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_ExposeEvent {
-        pub _type: uint8_t,
+        pub _type: u8,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_QuitEvent {
-        pub _type: uint8_t,
+        pub _type: u8,
     }
 
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_UserEvent {
-        pub _type: uint8_t,
+        pub _type: u8,
         pub code: c_int,
         pub data1: *mut c_void,
         pub data2: *mut c_void,
@@ -168,12 +167,12 @@ pub mod ll {
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_SysWMEvent {
-        pub _type: uint8_t,
+        pub _type: u8,
         pub msg: *mut SDL_SysWMmsg,
     }
 
     impl SDL_Event {
-        pub fn _type(&self) -> *const uint8_t {
+        pub fn _type(&self) -> *const u8 {
             unsafe { mem::transmute_copy(&self) }
         }
 
@@ -233,12 +232,12 @@ pub mod ll {
     extern "C" {
         pub fn SDL_PollEvent(event: *mut SDL_Event) -> c_int;
         pub fn SDL_WaitEvent(event: *mut SDL_Event) -> c_int;
-        pub fn SDL_EventState(_type: uint8_t, state: c_int) -> uint8_t;
-        pub fn SDL_GetKeyState(numkeys: *mut c_int) -> *mut uint8_t;
+        pub fn SDL_EventState(_type: u8, state: c_int) -> u8;
+        pub fn SDL_GetKeyState(numkeys: *mut c_int) -> *mut u8;
         pub fn SDL_GetModState() -> SDLMod;
         pub fn SDL_GetKeyName(key: SDLKey) -> *mut c_char;
         pub fn SDL_JoystickEventState(state: c_int) -> c_int;
-        pub fn SDL_GetAppState() -> uint8_t;
+        pub fn SDL_GetAppState() -> u8;
         pub fn SDL_EnableUNICODE(enable: c_int) -> c_int;
         pub fn SDL_EnableKeyRepeat(delay: c_int, interval: c_int) -> c_int;
         pub fn SDL_SetModState(modstate: SDLMod);

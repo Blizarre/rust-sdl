@@ -1,14 +1,13 @@
-use libc::c_int;
 use std::str;
 use std::ffi::CStr;
 
 use get_error;
+use std::os::raw::c_int;
 
 pub mod ll {
     #![allow(non_camel_case_types)]
 
-    use libc::{c_int, uint8_t, uint16_t, uint32_t};
-    use std::os::raw::c_char;
+    use std::os::raw::{c_int, c_char};
 
     pub type CDstatus = c_int;
 
@@ -21,11 +20,11 @@ pub mod ll {
     #[repr(C)]
     #[derive(Copy, Clone)]
     pub struct SDL_CDtrack {
-        pub id: uint8_t,
-        pub _type: uint8_t,
-        pub unused: uint16_t,
-        pub length: uint32_t,
-        pub offset: uint32_t
+        pub id: u8,
+        pub _type: u8,
+        pub unused: u16,
+        pub length: u32,
+        pub offset: u32
     }
 
     #[repr(C)]

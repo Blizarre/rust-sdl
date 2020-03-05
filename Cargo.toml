@@ -1,9 +1,10 @@
 [package]
 name = "sdl"
-version = "0.3.6"
+version = "0.3.7"
 authors = [
 	"Brian Anderson <banderson@mozilla.com>",
-	"Kang Seonghoon <public+rust@mearie.org>"
+	"Kang Seonghoon <public+rust@mearie.org>",
+	"Simon Marache-Francisco <rust@simon.marache.net>"
 ]
 
 description = "SDL bindings"
@@ -16,6 +17,5 @@ name = "sdl"
 path = "src/sdl/lib.rs"
 
 [dependencies]
-num = "0.1.24"
-rand = "0.3"
-libc = "0.1"
+num = "0.2.1"
+rand = "0.7.3"

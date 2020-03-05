@@ -1,13 +1,11 @@
-use libc::c_int;
-
 use get_error;
+use std::os::raw::c_int;
 
 pub mod ll {
     #![allow(non_camel_case_types)]
 
-    use libc::{c_void, c_int, uint8_t, uint16_t, int16_t};
-
     use Rect;
+    use std::os::raw::{c_void, c_int};
 
     pub static SDL_DISABLE: c_int = 0;
     pub static SDL_ENABLE: c_int = 1;
@@ -19,18 +17,18 @@ pub mod ll {
     #[derive(Copy, Clone)]
     pub struct SDL_Cursor {
          pub area: Rect,
-         pub hot_x: int16_t,
-         pub hot_y: int16_t,
-         pub data: *mut uint8_t,
-         pub mask: *mut uint8_t,
-         pub save: [*mut uint8_t; 2],
+         pub hot_x: i16,
+         pub hot_y: i16,
+         pub data: *mut u8,
+         pub mask: *mut u8,
+         pub save: [*mut u8; 2],
          pub wm_cursor: *mut WMcursor,
     }
 
     extern "C" {
         pub fn SDL_ShowCursor(toggle: c_int) -> c_int;
-        pub fn SDL_CreateCursor(data: *mut uint8_t,
-                                mask: *mut uint8_t,
+        pub fn SDL_CreateCursor(data: *mut u8,
+                                mask: *mut u8,
                                 w: c_int,
                                 h: c_int,
                                 hot_x: c_int,
@@ -39,7 +37,7 @@ pub mod ll {
         pub fn SDL_SetCursor(cursor: *mut SDL_Cursor);
         pub fn SDL_GetCursor() -> *mut SDL_Cursor;
         pub fn SDL_FreeCursor(cursor: *mut SDL_Cursor);
-        pub fn SDL_WarpMouse(x: uint16_t, y: uint16_t);
+        pub fn SDL_WarpMouse(x: u16, y: u16);
     }
 }
 

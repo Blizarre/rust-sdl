@@ -1,14 +1,13 @@
-use libc::c_int;
 use std::ffi::CStr;
 use std::str;
 
 use get_error;
+use std::os::raw::c_int;
 
 pub mod ll {
     #![allow(non_camel_case_types)]
 
-    use libc::{c_void, c_int, uint8_t, int16_t};
-    use std::os::raw::c_char;
+    use std::os::raw::{c_char, c_void, c_int};
 
     pub type SDL_Joystick = c_void;
 
@@ -24,11 +23,11 @@ pub mod ll {
         pub fn SDL_JoystickNumButtons(joystick: *mut SDL_Joystick) -> c_int;
         pub fn SDL_JoystickUpdate();
         pub fn SDL_JoystickEventState(state: c_int) -> c_int;
-        pub fn SDL_JoystickGetAxis(joystick: *mut SDL_Joystick, axis: c_int) -> int16_t;
-        pub fn SDL_JoystickGetHat(joystick: *mut SDL_Joystick, hat: c_int) -> uint8_t;
+        pub fn SDL_JoystickGetAxis(joystick: *mut SDL_Joystick, axis: c_int) -> i16;
+        pub fn SDL_JoystickGetHat(joystick: *mut SDL_Joystick, hat: c_int) -> u8;
         pub fn SDL_JoystickGetBall(joystick: *mut SDL_Joystick, ball: c_int, dx: *mut c_int, dy: *mut c_int)
                         -> c_int;
-        pub fn SDL_JoystickGetButton(joystick: *mut SDL_Joystick, button: c_int) -> uint8_t;
+        pub fn SDL_JoystickGetButton(joystick: *mut SDL_Joystick, button: c_int) -> u8;
         pub fn SDL_JoystickClose(joystick: *mut SDL_Joystick);
     }
 }

@@ -1,8 +1,8 @@
 #![allow(non_upper_case_globals)]
 
-use libc;
+use std::os::raw::c_uint;
 
-pub type SDLKey = libc::c_uint;
+pub type SDLKey = c_uint;
 
 pub const SDLK_UNKNOWN: SDLKey = 0;
 pub const SDLK_BACKSPACE: SDLKey = 8;

@@ -22,8 +22,7 @@ mod others {
 pub mod ll {
     #![allow(non_camel_case_types)]
 
-    use libc::{c_int, c_uint, uint32_t};
-    use std::os::raw::c_char;
+    use std::os::raw::{c_char, c_uint, c_int};
 
     pub type SDL_errorcode = c_uint;
     pub const SDL_ENOMEM: SDL_errorcode = 0;
@@ -33,7 +32,7 @@ pub mod ll {
     pub const SDL_UNSUPPORTED: SDL_errorcode = 4;
     pub const SDL_LASTERROR: SDL_errorcode = 5;
 
-    pub type SDL_InitFlag = uint32_t;
+    pub type SDL_InitFlag = u32;
     pub const SDL_INIT_TIMER: SDL_InitFlag = 0x00000001;
     pub const SDL_INIT_AUDIO: SDL_InitFlag = 0x00000010;
     pub const SDL_INIT_VIDEO: SDL_InitFlag = 0x00000020;
@@ -50,10 +49,10 @@ pub mod ll {
         pub fn SDL_GetError() -> *mut c_char;
         pub fn SDL_Quit();
         pub fn SDL_QuitSubSystem(flags: SDL_InitFlag);
-        pub fn SDL_Init(flags: uint32_t) -> c_int;
+        pub fn SDL_Init(flags: u32) -> c_int;
         pub fn SDL_InitSubSystem(flags: SDL_InitFlag) -> c_int;
         pub fn SDL_WasInit(flags: SDL_InitFlag) -> SDL_InitFlag;
-        pub fn SDL_GetTicks() -> uint32_t;
+        pub fn SDL_GetTicks() -> u32;
     }
 }
 
