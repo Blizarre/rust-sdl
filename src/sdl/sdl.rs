@@ -172,6 +172,6 @@ pub fn clear_error() {
     unsafe { ll::SDL_ClearError(); }
 }
 
-pub fn get_ticks() -> usize {
-    unsafe { ll::SDL_GetTicks() as usize }
+pub fn get_ticks() -> u32 {
+    unsafe { ll::SDL_GetTicks() }
 }
